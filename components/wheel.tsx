@@ -18,8 +18,8 @@ export default function Wheel() {
   const spin = () => {
     if (spinning) return;
     setSpinning(true);
-    const randomRotation = Math.floor(Math.random() * 360 + 720);
-    const spinDuration = 3000;
+    const randomRotation = Math.PI * (2 * Math.random() + 30);
+    const spinDuration = 5000;
     const startTime = performance.now();
 
     const animate = (time: number) => {
