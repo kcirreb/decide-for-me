@@ -1,11 +1,13 @@
 "use client";
 
+import { DEFAULT_COLORS } from "@/lib/constants";
 import { useEffect, useRef, useState } from "react";
 
-const options = ["A", "B", "C", "D", "E", "F", "G", "H"];
-const colors = ["#E74C3C", "#3498DB", "#27AE60", "#F1C40F"];
+interface WheelProps {
+  options: string[];
+}
 
-export default function Wheel() {
+export default function Wheel({ options }: WheelProps) {
   const [spinning, setSpinning] = useState<boolean>(false);
   const [rotation, setRotation] = useState<number>(0);
 
@@ -59,7 +61,7 @@ export default function Wheel() {
         rotation + angle * i,
         rotation + angle * (i + 1)
       );
-      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillStyle = DEFAULT_COLORS[i % DEFAULT_COLORS.length];
       ctx.fill();
       ctx.save();
 
@@ -80,7 +82,7 @@ export default function Wheel() {
     ctx.closePath();
     ctx.fillStyle = "white";
     ctx.fill();
-  }, [rotation]);
+  }, [rotation, options]);
 
   return (
     <div className="flex flex-col items-center">
