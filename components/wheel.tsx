@@ -1,14 +1,13 @@
-"use client";
-
 import { DEFAULT_COLORS } from "@/lib/constants";
 import { useEffect, useRef, useState } from "react";
 
 interface WheelProps {
   options: string[];
+  spinning: boolean;
+  setSpinning: (spinning: boolean) => void;
 }
 
-export default function Wheel({ options }: WheelProps) {
-  const [spinning, setSpinning] = useState<boolean>(false);
+export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
   const [rotation, setRotation] = useState<number>(0);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,7 +19,8 @@ export default function Wheel({ options }: WheelProps) {
   const spin = () => {
     if (spinning) return;
     setSpinning(true);
-    const randomRotation = Math.PI * (2 * Math.random() + 30);
+
+    const randomRotation = Math.PI * (2 * Math.random() + 50);
     const spinDuration = 5000;
     const startTime = performance.now();
 
@@ -70,7 +70,7 @@ export default function Wheel({ options }: WheelProps) {
       ctx.rotate(rotation + angle * i + angle / 2);
       ctx.fillStyle = "black";
       ctx.font = "32px Arial";
-      ctx.fillText(options[i], radius / 2, 10);
+      ctx.fillText(options[i], radius / 3, 10);
       ctx.restore();
     }
 
@@ -85,16 +85,14 @@ export default function Wheel({ options }: WheelProps) {
   }, [rotation, options]);
 
   return (
-    <div className="flex flex-col items-center">
-      <canvas
-        ref={canvasRef}
-        width={576}
-        height={576}
-        className="w-72 h-72"
-      ></canvas>
-      <button onClick={spin} disabled={spinning} className="mt-4">
-        spin
-      </button>
-    </div>
+    <canvas
+      ref={canvasRef}
+      width={1000}
+      height={1000}
+      onClick={spin}
+      className={`w-full max-w-lg aspect-square ${
+        spinning ? "cursor-default" : "cursor-pointer"
+      }`}
+    ></canvas>
   );
 }
