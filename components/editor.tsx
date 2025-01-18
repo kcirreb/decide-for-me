@@ -32,7 +32,7 @@ export default function Editor({ options, setOptions, spinning }: EditorProps) {
 
   const editOption = (index: number, value: string) => {
     const updatedOptions = options.map((option, i) =>
-      i === index ? value : option
+      i === index ? value : option,
     );
     setOptions(updatedOptions);
   };

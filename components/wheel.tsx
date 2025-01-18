@@ -59,7 +59,7 @@ export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
         radius,
         radius,
         rotation + angle * i,
-        rotation + angle * (i + 1)
+        rotation + angle * (i + 1),
       );
       ctx.fillStyle = DEFAULT_COLORS[i % DEFAULT_COLORS.length];
       ctx.fill();
