@@ -9,6 +9,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [options, setOptions] = useState<string[]>(DEFAULT_OPTIONS);
+  const [multiplier, setMultiplier] = useState<number>(1);
   const [spinning, setSpinning] = useState<boolean>(false);
 
   return (
@@ -18,10 +19,17 @@ export default function Home() {
       <Group justify="center" gap="xl" h="100%">
         <Wheel
           options={options}
+          multiplier={multiplier}
           spinning={spinning}
           setSpinning={setSpinning}
         />
-        <Editor options={options} setOptions={setOptions} spinning={spinning} />
+        <Editor
+          options={options}
+          setOptions={setOptions}
+          multiplier={multiplier}
+          setMultiplier={setMultiplier}
+          spinning={spinning}
+        />
       </Group>
     </Stack>
   );

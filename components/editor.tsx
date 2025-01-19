@@ -7,16 +7,24 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { IconCheck, IconTrash } from "@tabler/icons-react";
+import { IconCheck, IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 
 interface EditorProps {
   options: string[];
   setOptions: (options: string[]) => void;
+  multiplier: number;
+  setMultiplier: (multiplier: number) => void;
   spinning: boolean;
 }
 
-export default function Editor({ options, setOptions, spinning }: EditorProps) {
+export default function Editor({
+  options,
+  setOptions,
+  multiplier,
+  setMultiplier,
+  spinning,
+}: EditorProps) {
   const [newOption, setNewOption] = useState<string>("");
 
   const addOption = () => {
@@ -39,8 +47,26 @@ export default function Editor({ options, setOptions, spinning }: EditorProps) {
 
   return (
     <Card radius="md" withBorder className="h-full max-h-80">
-      <Text fw={500}>Edit wheel</Text>
-      <ScrollArea.Autosize h={200} mt="sm" offsetScrollbars>
+      <Group justify="space-between">
+        <Text fw={500}>Edit wheel</Text>
+        <Group gap="xs">
+          <ActionIcon
+            variant="default"
+            onClick={() => setMultiplier(multiplier - 1)}
+            disabled={multiplier === 1}
+          >
+            <IconMinus stroke={1.5} />
+          </ActionIcon>
+          <Text>{multiplier}</Text>
+          <ActionIcon
+            variant="default"
+            onClick={() => setMultiplier(multiplier + 1)}
+          >
+            <IconPlus stroke={1.5} />
+          </ActionIcon>
+        </Group>
+      </Group>
+      <ScrollArea.Autosize h={200} mt="sm">
         <Stack gap="xs">
           {options.map((option, index) => (
             <Group key={index}>

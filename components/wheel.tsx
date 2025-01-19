@@ -3,11 +3,17 @@ import { useEffect, useRef, useState } from "react";
 
 interface WheelProps {
   options: string[];
+  multiplier: number;
   spinning: boolean;
   setSpinning: (spinning: boolean) => void;
 }
 
-export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
+export default function Wheel({
+  options,
+  multiplier,
+  spinning,
+  setSpinning,
+}: WheelProps) {
   const [rotation, setRotation] = useState<number>(0);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,12 +52,12 @@ export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
     if (!ctx) return;
 
     const radius = canvas.width / 2;
-    const angle = (Math.PI * 2) / options.length;
+    const angle = (Math.PI * 2) / (options.length * multiplier);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < options.length; i++) {
-      // slice
+    for (let i = 0; i < options.length * multiplier; i++) {
+      // segment
       ctx.beginPath();
       ctx.moveTo(radius, radius);
       ctx.arc(
@@ -70,7 +76,7 @@ export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
       ctx.rotate(rotation + angle * i + angle / 2);
       ctx.fillStyle = "black";
       ctx.font = "32px Arial";
-      ctx.fillText(options[i], radius / 3, 10);
+      ctx.fillText(options[i % options.length], radius / 3, 10);
       ctx.restore();
     }
 
@@ -82,7 +88,7 @@ export default function Wheel({ options, spinning, setSpinning }: WheelProps) {
     ctx.closePath();
     ctx.fillStyle = "white";
     ctx.fill();
-  }, [rotation, options]);
+  }, [rotation, options, multiplier]);
 
   return (
     <canvas
