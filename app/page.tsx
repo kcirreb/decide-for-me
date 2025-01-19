@@ -1,61 +1,19 @@
 "use client";
 
 import Editor from "@/components/editor";
+import Header from "@/components/header";
 import Wheel from "@/components/wheel";
 import { DEFAULT_OPTIONS } from "@/lib/constants";
-import {
-  ActionIcon,
-  Group,
-  Stack,
-  Text,
-  useComputedColorScheme,
-  useMantineColorScheme,
-} from "@mantine/core";
-import { IconBrandGithubFilled, IconMoon, IconSun } from "@tabler/icons-react";
+import { Group, Stack } from "@mantine/core";
 import { useState } from "react";
 
 export default function Home() {
   const [options, setOptions] = useState<string[]>(DEFAULT_OPTIONS);
   const [spinning, setSpinning] = useState<boolean>(false);
 
-  const { setColorScheme } = useMantineColorScheme();
-  const computedColorScheme = useComputedColorScheme("light");
-
-  const toggleColorScheme = () => {
-    setColorScheme(computedColorScheme === "light" ? "dark" : "light");
-  };
-
   return (
     <Stack p="md" className="h-screen">
-      <Group justify="space-between">
-        <Text size="lg" fw={500}>
-          🎡 Decide for Me
-        </Text>
-        <Group gap="xs">
-          <ActionIcon
-            component="a"
-            href="https://github.com/kcirreb/decide-for-me"
-            target="_blank"
-            variant="default"
-            size="lg"
-            radius="md"
-          >
-            <IconBrandGithubFilled size={22} />
-          </ActionIcon>
-          <ActionIcon
-            onClick={toggleColorScheme}
-            variant="default"
-            size="lg"
-            radius="md"
-          >
-            {computedColorScheme === "light" ? (
-              <IconMoon size={22} stroke={1.5} />
-            ) : (
-              <IconSun size={22} stroke={1.5} />
-            )}
-          </ActionIcon>
-        </Group>
-      </Group>
+      <Header />
 
       <Group justify="center" gap="xl" h="100%">
         <Wheel
