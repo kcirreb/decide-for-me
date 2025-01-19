@@ -82,9 +82,9 @@ export default function Wheel({
 
     // arrow
     ctx.beginPath();
-    ctx.moveTo(radius - 10, 0);
-    ctx.lineTo(radius + 10, 0);
-    ctx.lineTo(radius, 20);
+    ctx.moveTo(radius * 2, radius - 10);
+    ctx.lineTo(radius * 2, radius + 10);
+    ctx.lineTo(radius * 2 - 20, radius);
     ctx.closePath();
     ctx.fillStyle = "white";
     ctx.fill();
